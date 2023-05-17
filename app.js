@@ -9,10 +9,8 @@ require("./config/mongoose");
 app.engine("handlebars", hbs.engine());
 app.set("view engine", "handlebars");
 
-app.get("/", (req, res) =>
- res.render("index", { PW }));
+app.get("/", (req, res) => res.render("index"));
 
- 
 app.listen(port, () => {
   console.log(`listening on http://localhost:${port}`);
 });
