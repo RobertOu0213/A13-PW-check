@@ -15,6 +15,8 @@ app.get("/", (req, res) => res.render("index"));
 
 app.post("/login", (req, res) => {
   if (!req.body.email || !req.body.password) return res.redirect("/");
+  PW.findOne
+
 
   PW.create(req.body)
     .then(() => res.redirect("/"))
