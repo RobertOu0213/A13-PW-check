@@ -13,16 +13,33 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => res.render("index"));
 
-app.post("/login", (req, res) => {
-  if (!req.body.email || !req.body.password) return res.redirect("/");
+//正確email & PW 可以render,但錯誤的就不行
 
-  return PW.findOne({
-    // email: req.body.email,
-    // password: req.body.password,
-  }).then((data) => {
-    res.render("sucess");
-  });
+// app.post("/login", (req, res) => {
+//   if (!req.body.email || !req.body.password) return res.redirect("/");
+
+//   const { email, password } = req.body;
+//   return (
+//     PW.findOne({ email }) &&
+//     PW.findOne({ password }).then((data) =>
+//       res.render("sucess", { firstName: data.firstName })
+//     )
+//   );
+// });
+
+app.post("/login", (req, res) => {
+  // if (!req.body.email || !req.body.password) return res.redirect("/");
+
+  const { email, password } = req.body;
+
+  if (PW.findOne({ email }) && PW.findOne({ password })) {
+    PW.findOne({ email }).then((data) =>
+      res.render("sucess", { firstName: data.firstName })
+    );
+  } else res.render("error");
 });
+
+
 
 app.listen(port, () => {
   console.log(`listening on http://localhost:${port}`);
