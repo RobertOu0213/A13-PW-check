@@ -15,12 +15,13 @@ app.get("/", (req, res) => res.render("index"));
 
 app.post("/login", (req, res) => {
   if (!req.body.email || !req.body.password) return res.redirect("/");
-  PW.findOne
 
-
-  PW.create(req.body)
-    .then(() => res.redirect("/"))
-    .catch((error) => console.log(error));
+  return PW.findOne({
+    // email: req.body.email,
+    // password: req.body.password,
+  }).then((data) => {
+    res.render("sucess");
+  });
 });
 
 app.listen(port, () => {
